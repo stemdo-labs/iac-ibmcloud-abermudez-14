@@ -13,7 +13,7 @@ provider "ibm" {
   ibmcloud_api_key=var.api_key
 }
 
-resource "ibm_is_vpc" "vpc_abermudez" {
+resource "ibm_is_vpc" "EJEMPLOVPC" {
   name = "example-vpc-abermudez"
   resource_group = var.resource_group
 }

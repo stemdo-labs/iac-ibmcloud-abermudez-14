@@ -1,5 +1,5 @@
 terraform {
-  provider_meta "ibm" {
+  provider_meta "ib" {
     
   }
 }

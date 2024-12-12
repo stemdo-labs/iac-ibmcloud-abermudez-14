@@ -10,7 +10,7 @@ terraform {
 # Configure the IBM Provider
 provider "ibm" {
   region = "us-south"
-  ibmcloud_api_key="zU2ww99HEmXWHoiem1mSoPWgAl4h809FkDT4_SPYjZpQ"
+  ibmcloud_api_key="O65lS2YdV7Rs1rsrMoMKKT4Ap1pTzGf-H0KteQlxTdjT"
 }
 
 resource "ibm_is_vpc" "EJEMPLOVPC" {

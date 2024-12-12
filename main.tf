@@ -10,7 +10,7 @@ terraform {
 # Configure the IBM Provider
 provider "ibm" {
   region = "eu-gb"
-  ibmcloud_api_key="03fU7W2VX2zH2oC9JW7Asj7DV96j9jUG56MaMI0r8PTx"
+  ibmcloud_api_key=var.api_key
 }
 
 resource "ibm_resource_group" "abermudez" {

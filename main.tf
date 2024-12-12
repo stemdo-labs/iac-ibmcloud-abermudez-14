@@ -11,3 +11,7 @@ terraform {
 provider "ibm" {
   region = "us-south"
 }
+
+resource "ibm_resource_group" "resourceGroupabermudez" {
+  name     = "abermudez-rg"
+}

@@ -35,7 +35,7 @@ resource "ibm_is_security_group" "ssh_security_group" {
 resource "ibm_is_security_group_rule" "ssh_rule" {
   group     = ibm_is_security_group.ssh_security_group.id
   direction = "inbound"
-  remote    = "*"
+  remote    = "0.0.0.0/0"
   tcp {
     port_min = 22
     port_max = 22

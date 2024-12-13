@@ -30,6 +30,8 @@ resource "ibm_is_public_gateway" "gw_abermudez" {
   name = "gateway-abermudez"
   vpc  = ibm_is_vpc.vpc_abermudez.id
   zone = "eu-gb-1"
+  resource_group = var.resource_group
+
 }
 
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {

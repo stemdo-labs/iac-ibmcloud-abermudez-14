@@ -69,12 +69,19 @@ resource "ibm_is_floating_ip" "public_ip" {
 
 }
 
+resource "ibm_is_ssh_key" "ssh_key_abermudez" {
+  name       = "ssh-key-abermudez"
+  public_key = var.ssh_key  # Ruta de tu clave pública
+  resource_group = var.resource_group
+}
+
 # Virtual Server Instance (VM)
 resource "ibm_is_instance" "vm_abermudez" {
   name              = "vm-abermudez"
   vpc               = ibm_is_vpc.vpc_abermudez.id
   profile           = "bx2-2x8" # Cambiar según tus necesidades
   zone              = "eu-gb-1"
+  keys = [ibm_is_ssh_key.ssh_key_abermudez.id]  # Asignar la clave SSH a la VM
   image             = "r018-941eb02e-ceb9-44c8-895b-b31d241f43b5" # Reemplazar con el ID correcto
   resource_group = var.resource_group
 

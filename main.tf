@@ -57,21 +57,28 @@ resource "ibm_is_subnet" "subnet_cluster_abermudez" {
   zone = "eu-gb-1"
   resource_group = var.resource_group
   ipv4_cidr_block= "10.242.2.0/24"
- 
+
 }
 
 # Floating IP
 resource "ibm_is_floating_ip" "public_ip" {
   name   = "public-ip-abermudez"
   target = ibm_is_instance.vm_abermudez.primary_network_interface[0].id
-  resource_group = var.resource_group  
+  resource_group = var.resource_group
   depends_on = [ibm_is_instance.vm_abermudez]
 
 }
 
 resource "ibm_is_ssh_key" "ssh_key_abermudez" {
   name       = "ssh-key-abermudez"
-  public_key = var.ssh_key  # Ruta de tu clave pública
+  public_key = <<-EOF
+  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCt9/RwJ2IaSKnCLvInZGYHbobdOND7ZdcKwpB2SgVnpF5oLleOngQ2qMQBBswBwtpyQjBv00RmCPhqCgmx4VkHk+36RJHtNUnjbKIi
+VSJpapNdg/GxRTGOHyvHPgDnDtBB8Ufsx2z0DF4DN2g9yjiTLre10GCed0zZcH0zORE8TJnvp8rYKrm9woj3un19WwgI9LJPbojuciAhmjadp1Cu6bdbQ1XDQOwQpjxDF9A0cTMSjM8K
+eoZiul3eNv0V+arvAF0B9v9wlRoWhjtymgKCDUHfBcczLYLA+CyFjplkOw47OiZRJj7Iv3NBxHEPVR2Irhg9UucHRBc+PlbOdwb0hdPtDx2crwfLoua/8J5UY5IUcOrBu6QNqYenkxis
+6s7Ukve8VLNzcQcMzT9eaIzn3Fffpr/rUyAtdDLoeS5s6+JABCD+zaCRnQs9wwvHoVf4hpDL0w+rkJ3JuEMvStXi+w7HlJUxnNB8Y0Cji48LUY3AK9bOZw3hAvvwhjCddPP7AFWLBn1v
+0JJqFcwxPl6ihjIfCIQ2odRo0PUN3H7abdHwy4NacH2ZgbrWfJG/gCP2r4C7jM0oTYjNehWMIHzzC+J/in2+KJJZMIppqMGfK7+XLg3OiV5B/PxSJAdJkXhNWXOootZU854es/eDzYkE
+UHMEPvdWojw5OguWH9F1QQ== IBM
+  EOF
   resource_group = var.resource_group
 }
 
@@ -91,4 +98,4 @@ resource "ibm_is_instance" "vm_abermudez" {
 
   }
 }
-  
+

@@ -26,6 +26,12 @@ resource "ibm_is_subnet" "subnet_abermudez" {
   ipv4_cidr_block= "10.242.1.0/24"
 }
 
+resource "ibm_is_internet_gateway" "internet_gateway_abermudez" {
+  name        = "internet-gateway-abermudez"
+  vpc         = ibm_is_vpc.vpc_abermudez.id
+  resource_group = var.resource_group
+}
+
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {
   name = "vpc-cluster-abermudez"
   resource_group = var.resource_group

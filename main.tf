@@ -26,13 +26,23 @@ resource "ibm_is_subnet" "subnet_abermudez" {
   ipv4_cidr_block= "10.242.1.0/24"
 }
 
-resource "ibm_is_public_gateway" "gw_abermudez" {
-  name = "gateway-abermudez"
-  vpc  = ibm_is_vpc.vpc_abermudez.id
-  zone = "eu-gb-1"
-  resource_group = var.resource_group
-
+resource "ibm_is_security_group" "ssh_security_group" {
+  name            = "ssh-security-group"
+  vpc          =  ibm_is_vpc.vpc_abermudez.id  # Reemplaza con tu VPC
+  resource_group  = var.resource_group          # Reemplaza con tu grupo de recursos
 }
+
+resource "ibm_is_security_group_rule" "ssh_rule" {
+  group     = ibm_is_security_group.ssh_security_group.id
+  direction = "inbound"
+  remote    = "*"
+  tcp {
+    port_min = 22
+    port_max = 22
+  }
+}
+
+
 
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {
   name = "vpc-cluster-abermudez"
@@ -70,6 +80,8 @@ resource "ibm_is_instance" "vm_abermudez" {
 
   primary_network_interface {
     subnet          = ibm_is_subnet.subnet_abermudez.id
+    security_groups = [ibm_is_security_group.ssh_security_group.id]  # Asociar el Security Group a la instancia
+
   }
 }
   

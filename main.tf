@@ -19,7 +19,7 @@ resource "ibm_is_vpc" "vpc_abermudez" {
 }
 
 resource "ibm_is_subnet" "subnet_abermudez" {
-  name = "subnet_abermudez"
+  name = "subnet-abermudez"
   vpc = ibm_is_vpc.vpc_abermudez.id
   zone = "eu-gb"
 }
@@ -29,7 +29,7 @@ resource "ibm_is_vpc" "vpc_cluster_abermudez" {
 }
 
 resource "ibm_is_subnet" "subnet_cluster_abermudez" {
-  name = "subnet_cluster_abermudez"
+  name = "subnet-cluster-abermudez"
   vpc = ibm_is_vpc.vpc_cluster_abermudez.id
   zone = "eu-gb"
 }

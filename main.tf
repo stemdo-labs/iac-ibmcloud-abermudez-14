@@ -23,7 +23,7 @@ resource "ibm_is_subnet" "subnet_abermudez" {
   vpc = ibm_is_vpc.vpc_abermudez.id
   zone = "eu-gb-1"
   resource_group = var.resource_group
-  ipv4_cidr_block= "10.0.1.0/24"
+  ipv4_cidr_block= "10.242.1.0/24"
 }
 
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {
@@ -32,18 +32,13 @@ resource "ibm_is_vpc" "vpc_cluster_abermudez" {
 
 }
 
-resource "ibm_is_vpc_routing_table" "routing_table_vm" {
-  name = "routing-table-vm-abermudez"
-  vpc  = ibm_is_vpc.vpc_abermudez.id
-}
 
 resource "ibm_is_subnet" "subnet_cluster_abermudez" {
   name = "subnet-cluster-abermudez"
   vpc = ibm_is_vpc.vpc_cluster_abermudez.id
   zone = "eu-gb-1"
   resource_group = var.resource_group
-  ipv4_cidr_block= "10.0.2.0/24"
-  routing_table   = ibm_is_vpc_routing_table.routing_table_vm.routing_table
+  ipv4_cidr_block= "10.242.2.0/24"
  
 }
 

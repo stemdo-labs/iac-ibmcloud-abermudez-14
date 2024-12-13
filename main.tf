@@ -55,7 +55,7 @@ resource "ibm_is_floating_ip" "public_ip" {
 resource "ibm_is_instance" "vm_abermudez" {
   name              = "vm-abermudez"
   vpc               = ibm_is_vpc.vpc_abermudez.id
-  profile           = "bx2-1x4" # Cambiar según tus necesidades
+  profile           = "bx2-2x4" # Cambiar según tus necesidades
   zone              = "eu-gb-1"
   image             = "r018-941eb02e-ceb9-44c8-895b-b31d241f43b5" # Reemplazar con el ID correcto
   resource_group = var.resource_group

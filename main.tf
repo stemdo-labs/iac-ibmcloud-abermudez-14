@@ -57,7 +57,7 @@ resource "ibm_is_instance" "vm_abermudez" {
   vpc               = ibm_is_vpc.vpc_abermudez.id
   profile           = "bx2-1x2" # Cambiar según tus necesidades
   zone              = "eu-gb-1"
-  image             = "r006-21d636c2-eacf-4c31-9cc8-c7335966f4e3" # Reemplazar con el ID correcto
+  image             = "r018-941eb02e-ceb9-44c8-895b-b31d241f43b5" # Reemplazar con el ID correcto
   resource_group = var.resource_group
 
   primary_network_interface {

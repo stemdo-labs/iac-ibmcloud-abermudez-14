@@ -13,9 +13,45 @@ provider "ibm" {
   ibmcloud_api_key=var.api_key
 }
 
-resource "ibm_is_vpc" "EJEMPLOVPC" {
-  name = "example-vpc-abermudez"
+resource "ibm_is_vpc" "vpc_abermudez" {
+  name = "vpc-abermudez"
   resource_group = var.resource_group
 }
 
+resource "ibm_is_subnet" "subnet_abermudez" {
+  name = "subnet_abermudez"
+  vpc = ibm_is_vpc.vpc_abermudez.id
+  zone = "eu-gb"
+}
+
+resource "ibm_is_vpc" "vpc_cluster_abermudez" {
+  name = "vpc-cluster-abermudez"
+}
+
+resource "ibm_is_subnet" "subnet_cluster_abermudez" {
+  name = "subnet_cluster_abermudez"
+  vpc = ibm_is_vpc.vpc_cluster_abermudez.id
+  zone = "eu-gb"
+}
+
+# Floating IP
+resource "ibm_is_floating_ip" "public_ip" {
+  name   = "public-ip-abermudez"
+  zone   = "eu-gb"
+  target = ibm_is_instance.vm_abermudez.primary_network_interface[0].id
+}
+
+# Virtual Server Instance (VM)
+resource "ibm_is_instance" "vm_abermudez" {
+  name              = "vm-abermudez"
+  vpc               = ibm_is_vpc.vpc_abermudez.id
+  profile           = "bx2-1x2" # Cambiar según tus necesidades
+  zone              = "eu-gb"
+  image             = "r006-21d636c2-eacf-4c31-9cc8-c7335966f4e3" # Reemplazar con el ID correcto
+  keys              = [var.ssh_key]
+
+  primary_network_interface {
+    subnet          = ibm_is_subnet.subnet_abermudez.id
+  }
+}
   

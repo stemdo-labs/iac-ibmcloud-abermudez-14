@@ -23,7 +23,7 @@ resource "ibm_is_subnet" "subnet_abermudez" {
   vpc = ibm_is_vpc.vpc_abermudez.id
   zone = "eu-gb"
   resource_group = var.resource_group
-  ipv4_cidr_block= "10.0.1.0/16"
+  ipv4_cidr_block= "10.0.1.0/24"
 }
 
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {
@@ -36,7 +36,7 @@ resource "ibm_is_subnet" "subnet_cluster_abermudez" {
   vpc = ibm_is_vpc.vpc_cluster_abermudez.id
   zone = "eu-gb"
   resource_group = var.resource_group
-  ipv4_cidr_block= "10.0.2.0/16"
+  ipv4_cidr_block= "10.0.2.0/24"
  
 }
 

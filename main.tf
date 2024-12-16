@@ -42,6 +42,13 @@ resource "ibm_is_security_group_rule" "ssh_rule" {
   }
 }
 
+resource "ibm_is_security_group_rule" "IP_rule" {
+  group     = ibm_is_security_group.ssh_security_group.id
+  direction = "outbound"
+  remote    = "0.0.0.0/0"
+
+}
+
 
 
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {

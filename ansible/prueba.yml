@@ -11,9 +11,9 @@
   hosts: localhost
   gather_facts: yes
   tasks:
-    - name: Mostrar información del sistema
-      ansible.builtin.debug:
-        msg:
+  - name: Mostrar información del sistema
+    ansible.builtin.debug:
+      msg:
           - "OS Family: {{ ansible_os_family }}"
           - "Hostname: {{ ansible_hostname }}"
           - "IPv4: {{ ansible_default_ipv4.address }}"

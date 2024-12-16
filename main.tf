@@ -75,8 +75,13 @@ resource "ibm_is_ssh_key" "ssh_key_abermudez" {
  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQYePYr1IxSOGxJ6+lKuD4onsLK8jxU93BvYAB2lxTgomteXCpdHnKK3jix8hxadmANkG/k9kEjxWwKQR7ZVyw8eQul3aLCfMnHGqplVQH3JSsz5bKMaCNx8r2P5SYGLeTmbixZUmjlFxeacEQ7/8RPvVESZ5IvrOpNtsW0kF3IsxXZndLhZlC+a69xIw2UTDVYRjwSFcB4BLl2Z3YPIwcFNWyDQdThmSWJkfdXxOmunaVRVK+OFhEAJmIf8TJ6JVBbsBf1RU2khD8M3zGpxTKF6W0rb9seEkfHERhJbYpv8NmyWST8vgyCYRElKQK+IWmT4qMua+q6eXcrUtalyZa1m8rIytze10sa4kBsN/fdr/rtACDo+hx/e1lU5GnwodPscFaVHHH5nIOF1iq4llRevoPsTvSwViAE9Se1BrLZC1MrpyxF8l7LTDqCYbRuWoTXP5w5ElbqKIEbaBvv3xhd8V7jW0VYvg/vSbD9ZApAmb7QRnzzjGLCKS9k5/rOvhtcT/FP7XXxivnc+tRp7Q+FRjHAPgmhd9unk/LTUjXhaD9+M30nDol39jT+jwBZ8JOW1rFEFQJkGM7wfqSzbJRQutH5VMCX3XSk1+qv2hz5Sza1IJJPfeleetFRT9b1AbU/TCRpOg7ZwrcvMd9xyWFacHTqaUR2/oXF2c6FzT6FQ== abermudez@stemdo
   EOF
   resource_group = var.resource_group
+  
 }
-
+resource "ibm_is_public_gateway" "public_gateway_abermudez" {
+  name = "vpc-abermudez"
+  vpc  = ibm_is_vpc.vpc_abermudez.id
+  zone = "eu-gb-1"
+}
 # Virtual Server Instance (VM)
 resource "ibm_is_instance" "vm_abermudez" {
   name              = "vm-abermudez"

@@ -5,6 +5,6 @@
     - name: Ejecutar el comando ls -la
       command: ls -la
       register: res 
-    - name:  
+    - name: mostrar
       debug:
         var: res 

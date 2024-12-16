@@ -1,6 +1,5 @@
 - name: Obtener información del sistema
   hosts: nodo1
-  gather_facts: true
 
   tasks:
     - name: Ejecutar el comando ls -la

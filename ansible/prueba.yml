@@ -3,18 +3,5 @@
   gather_facts: true
 
   tasks:
-  - name: Informacion de nodo1 remoto
-    debug:
-      msg: " Os_family: {{ansible_facts['os_family']}}. Hostname: {{ansible_facts['hostname']}}. IPv4 : {{ansible_facts['all_ipv4_addresses']}} "
-
-- name: Obtener información de la máquina local
-  hosts: localhost
-  gather_facts: yes
-  
-  tasks:
-  - name: Mostrar información del sistema
-    ansible.builtin.debug:
-      msg:
-          - "OS Family: {{ ansible_os_family }}"
-          - "Hostname: {{ ansible_hostname }}"
-          - "IPv4: {{ ansible_default_ipv4.address }}"
+    - name: Ejecutar el comando ls -la
+      command: ls -la

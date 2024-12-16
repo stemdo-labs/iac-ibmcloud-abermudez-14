@@ -81,6 +81,7 @@ resource "ibm_is_public_gateway" "public_gateway_abermudez" {
   name = "vpc-abermudez"
   vpc  = ibm_is_vpc.vpc_abermudez.id
   zone = "eu-gb-1"
+  resource_group = var.resource_group
 }
 # Virtual Server Instance (VM)
 resource "ibm_is_instance" "vm_abermudez" {

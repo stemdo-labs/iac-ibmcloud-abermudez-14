@@ -10,6 +10,7 @@
 - name: Obtener información de la máquina local
   hosts: localhost
   gather_facts: yes
+  
   tasks:
   - name: Mostrar información del sistema
     ansible.builtin.debug:

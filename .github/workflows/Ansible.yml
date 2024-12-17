@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Ansible, curl, docker, kubectl, AZ CLI
         run: |
-             sudo su
+             echo "1234" | sudo -S su
               apt update && sudo apt upgrade
               apt install software-properties-common
               add-apt-repository --update ppa:ansible/ansible

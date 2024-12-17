@@ -53,8 +53,13 @@ jobs:
         run: |
           cd ansible
           touch inventory.ini
-          echo "[vm]" >> inventory.ini
-          echo "${{inputs.IP_publica}} ansible_user=alejandroBD ansible_password=${{secrets.ANSIBLE_PASSWORD}} ansible_become=true ansible_become_method=sudo " >> inventory.ini
+          echo "[nodo1]" >> inventory.ini
+          echo "${{inputs.IP_publica}} ansible_user=alejandro ansible_become=true ansible_become_method=sudo" >> inventory.ini
+      
+
+      - name: Hacer backup de la base de datos en la maquina de backups
+        run: |
+          cd ansible && ansible-playbook -i inventory.ini prueba.yml -u alejandro
 
       # - name: Instalar PostgreSQL en la maquina de BBDD
       #   run: cd ansible && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini postgre.yml -u alejandroBD

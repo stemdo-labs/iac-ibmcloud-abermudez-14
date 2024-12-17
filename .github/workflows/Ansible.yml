@@ -17,20 +17,22 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: checks
+        run: whoami && ls -la
 
       - name: Install Ansible, curl, docker, kubectl, AZ CLI
         run: |
              echo "1234" | sudo -S su
-              apt update && sudo apt upgrade
-              apt install software-properties-common
-              add-apt-repository --update ppa:ansible/ansible
-              apt install ansible
-              apt install docker.io
-              systemctl start docker
-              systemctl enable docker
-              apt install curl
-              curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-              install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+              echo "1234" |sudo -S apt update && sudo apt upgrade
+              echo "1234" |sudo -S apt install software-properties-common
+              echo "1234" |sudo -S add-apt-repository --update ppa:ansible/ansible
+              echo "1234" |sudo -S apt install ansible
+              echo "1234" |sudo -S apt install docker.io
+              echo "1234" |sudo -S systemctl start docker
+              echo "1234" |sudo -S systemctl enable docker
+              echo "1234" |sudo -S apt install curl
+              echo "1234" |sudo -S curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+              echo "1234" | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           
       - name: Generar inventario de ansible
         run: |

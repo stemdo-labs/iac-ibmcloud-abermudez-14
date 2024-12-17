@@ -23,15 +23,15 @@ jobs:
       - name: Install Ansible, curl, docker, kubectl, AZ CLI
         run: |
              echo "1234" | sudo -S su
-              echo "1234" |sudo -S apt update && sudo apt upgrade
-              echo "1234" |sudo -S apt install software-properties-common
+              echo "1234" |sudo -S apt update -y && sudo apt upgrade -y
+              echo "1234" |sudo -S apt install -y software-properties-common
               echo "1234" |sudo -S add-apt-repository --update ppa:ansible/ansible
-              echo "1234" |sudo -S apt install ansible
-              echo "1234" |sudo -S apt install docker.io
+              echo "1234" |sudo -S apt -y install ansible
+              echo "1234" |sudo -S apt -y install docker.io
               echo "1234" |sudo -S systemctl start docker
               echo "1234" |sudo -S systemctl enable docker
-              echo "1234" |sudo -S apt install curl
-              echo "1234" |sudo -S curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+              echo "1234" |sudo -S apt -y install curl
+              echo "1234" |sudo -S curl -y -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
               echo "1234" | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           
       - name: Generar inventario de ansible

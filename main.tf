@@ -107,3 +107,9 @@ resource "ibm_is_instance" "vm_abermudez" {
   }
 }
 
+
+resource "ibm_cr_namespace" "abermudez_cr_namespace" {
+  name              = "abermudez-cr-namespace"
+  resource_group_id = var.resource_group
+}
+

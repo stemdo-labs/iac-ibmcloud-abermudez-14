@@ -5,3 +5,8 @@
   tasks:
    - name: Ejecutar el comando ls -la
      command: ls -la
+     register: resu
+
+   - name: Mostrar
+     debug:
+      var: resu

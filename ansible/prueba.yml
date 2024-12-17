@@ -3,4 +3,4 @@
   gather_facts: no
   tasks:
     - name: Ejecutar el comando ls -la
-      command: ls -la
+      shell: ls -la

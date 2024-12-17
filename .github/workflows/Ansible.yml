@@ -17,15 +17,14 @@ jobs:
         run: |
              sudo apt update && sudo apt upgrade -y
              sudo apt install -y software-properties-common
-             add-apt-repository --yes --update ppa:ansible/ansible
-             apt install -y ansible
-             apt install docker.io -y
-             systemctl start docker
-             systemctl enable docker
-             apt install curl
+             sudo add-apt-repository --yes --update ppa:ansible/ansible
+             sudo apt install -y ansible
+             sudo apt install docker.io -y
+             sudo systemctl start docker
+             sudo systemctl enable docker
+             sudo apt install curl
              curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
              install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-             curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
           
       - name: Generar inventario de ansible
         run: |

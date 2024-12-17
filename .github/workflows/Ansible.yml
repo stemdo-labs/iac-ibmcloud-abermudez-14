@@ -3,6 +3,11 @@ name: Ansible
 on:
   workflow_dispatch:
 
+    inputs:
+      IP_publica:
+        type: string
+        description: IP pública de la VM de IBM Cloud
+        required: true
 
 jobs:
   Ansible:
@@ -31,17 +36,15 @@ jobs:
           cd ansible
           touch inventory.ini
           echo "[vm]" >> inventory.ini
-          echo "127.0.0.1 ansible_user=alejandroBD ansible_password=${{secrets.ANSIBLE_PASSWORD}} ansible_become=true ansible_become_method=sudo " >> inventory.ini
-          echo "[bkp]" >> inventory.ini
-          echo "127.0.0.1 ansible_user=alejandro ansible_password=${{secrets.ANSIBLE_PASSWORD}} ansible_become=true ansible_become_method=sudo " >> inventory.ini
+          echo "${{inputs.IP_publica}} ansible_user=alejandroBD ansible_password=${{secrets.ANSIBLE_PASSWORD}} ansible_become=true ansible_become_method=sudo " >> inventory.ini
 
-      - name: Instalar PostgreSQL en la maquina de BBDD
-        run: cd ansible && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini postgre.yml -u alejandroBD
-        env:
-          PG_USER: ${{ secrets.PG_USER }}
-          PG_PASSWORD: ${{secrets.PG_PASSWORD}}
+      # - name: Instalar PostgreSQL en la maquina de BBDD
+      #   run: cd ansible && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini postgre.yml -u alejandroBD
+      #   env:
+      #     PG_USER: ${{ secrets.PG_USER }}
+      #     PG_PASSWORD: ${{secrets.PG_PASSWORD}}
 
-      - name: Hacer backup de la base de datos en la maquina de backups
-        run: |
-          cd ansible && ansible-playbook -i inventory.ini backup.yml -u alejandro
+      # - name: Hacer backup de la base de datos en la maquina de backups
+      #   run: |
+      #     cd ansible && ansible-playbook -i inventory.ini backup.yml -u alejandro
   

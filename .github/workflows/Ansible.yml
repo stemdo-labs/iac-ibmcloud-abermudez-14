@@ -13,10 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Ansible, curl, docker, kubectl, AZ CLI 
+      - name: Install Ansible, curl, docker, kubectl, AZ CLI
         run: |
-             apt update && sudo apt upgrade -y
-             apt install -y software-properties-common
+             sudo apt update && sudo apt upgrade -y
+             sudo apt install -y software-properties-common
              add-apt-repository --yes --update ppa:ansible/ansible
              apt install -y ansible
              apt install docker.io -y

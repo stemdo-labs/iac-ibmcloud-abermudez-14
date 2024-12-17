@@ -1,6 +1,7 @@
+
 - name: Obtener información del sistema
   hosts: nodo1
-  gather_facts: no
+  gather_facts: False
   tasks:
-    - name: Ejecutar el comando ls -la
-      raw: ansible --version
+   - name: Ejecutar el comando ls -la
+     raw: ansible --version

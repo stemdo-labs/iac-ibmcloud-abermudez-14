@@ -20,6 +20,9 @@ jobs:
       - name: checks
         run: whoami && ls -la
 
+      - name: Ensure sudo does not ask for a password
+        run: echo "defaults    !requiretty" | sudo tee -a /etc/sudoers
+
       - name: Install Ansible, curl, docker, kubectl, AZ CLI
         run: |
              

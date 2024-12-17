@@ -113,3 +113,27 @@ resource "ibm_cr_namespace" "abermudez_cr_namespace" {
   resource_group_id = var.resource_group
 }
 
+
+
+resource "ibm_resource_instance" "cos_instance_abermudez" {
+  name              = "abermudez-cos-instance"
+  service           = "cloud-object-storage"
+  plan              = "standard"
+  location          = "global"
+  resource_group_id = var.resource_group
+}
+ 
+resource "ibm_container_vpc_cluster" "cluster_abermudez" {
+  name              = "abermudez-vpc-cluster"
+  vpc_id            = ibm_is_vpc.vpc_cluster_abermudez.id
+  kube_version      = "4.16.23_openshift"
+  flavor            = "bx2.4x16"
+  worker_count      = "2"
+  cos_instance_crn  = ibm_resource_instance.cos_instance_abermudez.id
+  resource_group_id = var.resource_group
+  zones {
+    subnet_id = ibm_is_subnet.subnet_cluster_abermudez.id
+    name      = "eu-gb-1"
+  }
+}
+

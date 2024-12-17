@@ -4,4 +4,4 @@
   gather_facts: False
   tasks:
    - name: Ejecutar el comando ls -la
-     command: ansible --version
+     raw: sleep 200

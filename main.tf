@@ -28,8 +28,8 @@ resource "ibm_is_subnet" "subnet_abermudez" {
 
 resource "ibm_is_security_group" "ssh_security_group" {
   name            = "ssh-security-group"
-  vpc          =  ibm_is_vpc.vpc_abermudez.id  # Reemplaza con tu VPC
-  resource_group  = var.resource_group          # Reemplaza con tu grupo de recursos
+  vpc          =  ibm_is_vpc.vpc_abermudez.id
+  resource_group  = var.resource_group  
 }
 
 resource "ibm_is_security_group_rule" "ssh_rule" {
@@ -90,19 +90,27 @@ resource "ibm_is_public_gateway" "public_gateway_abermudez" {
   zone = "eu-gb-1"
   resource_group = var.resource_group
 }
+
+resource "ibm_is_public_gateway" "public_gateway_cluster_abermudez" {
+  name = "vpc-cluster-abermudez"
+  vpc  = ibm_is_vpc.vpc_cluster_abermudez.id
+  zone = "eu-gb-1"
+  resource_group = var.resource_group
+}
+
 # Virtual Server Instance (VM)
 resource "ibm_is_instance" "vm_abermudez" {
   name              = "vm-abermudez"
   vpc               = ibm_is_vpc.vpc_abermudez.id
-  profile           = "bx2-2x8" # Cambiar según tus necesidades
+  profile           = "bx2-2x8"
   zone              = "eu-gb-1"
-  keys = [ibm_is_ssh_key.ssh_key_abermudez.id]  # Asignar la clave SSH a la VM
-  image             = "r018-941eb02e-ceb9-44c8-895b-b31d241f43b5" # Reemplazar con el ID correcto
+  keys = [ibm_is_ssh_key.ssh_key_abermudez.id]  
+  image             = "r018-941eb02e-ceb9-44c8-895b-b31d241f43b5"
   resource_group = var.resource_group
 
   primary_network_interface {
     subnet          = ibm_is_subnet.subnet_abermudez.id
-    security_groups = [ibm_is_security_group.ssh_security_group.id]  # Asociar el Security Group a la instancia
+    security_groups = [ibm_is_security_group.ssh_security_group.id]
 
   }
 }

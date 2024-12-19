@@ -31,7 +31,7 @@
       community.postgresql.postgresql_db:
         name: "{{ postgres_db }}"
         state: present
-
+    
 
     - name: Crear usuario de base de datos
       community.postgresql.postgresql_user:
@@ -51,13 +51,13 @@
         line: "listen_addresses = '*'"
         state: present
 
-    - name: Configurar acceso en pg_hba.conf para alejandroBD desde 10.0.34.4
+    - name: Configurar acceso en pg_hba.conf para alejandro
       become: yes
       become_user: root
       lineinfile:
         path: "/etc/postgresql/16/main/pg_hba.conf"  
         regexp: '^host\s+all\s+alejandroBD\s+0.0.0.0/0\s+md5'
-        line: "host    all             alejandroBD     0.0.0.0/0              md5"
+        line: "host    all             alejandro       0.0.0.0/0              md5"
         state: present
 
     - name: Asignar privilegios al usuario en la base de datos

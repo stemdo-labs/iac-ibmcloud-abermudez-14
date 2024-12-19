@@ -44,6 +44,16 @@ resource "ibm_is_security_group_rule" "ssh_rule" {
   }
 }
 
+resource "ibm_is_security_group_rule" "postgre_rule" {
+  group     = ibm_is_security_group.ssh_security_group.id
+  direction = "inbound"
+  remote    = "0.0.0.0/0"
+  tcp {
+    port_min = 5432
+    port_max = 5432
+  }
+}
+
 resource "ibm_is_security_group_rule" "IP_rule" {
   group     = ibm_is_security_group.ssh_security_group.id
   direction = "outbound"

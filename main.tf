@@ -28,7 +28,7 @@ resource "ibm_is_subnet" "subnet_abermudez" {
 
 resource "ibm_is_security_group" "ssh_security_group" {
   name            = "ssh-security-group"
-  vpc          =  ibm_is_vpc.vpc_abermudez.id
+  vpc          =  [ibm_is_vpc.vpc_abermudez.id,ibm_is_vpc.vpc_cluster_abermudez.vpc_id]
   resource_group  = var.resource_group  
 }
 

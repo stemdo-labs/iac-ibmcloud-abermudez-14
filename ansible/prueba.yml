@@ -1,12 +1,80 @@
+---
+- name: Instalar y configurar PostgreSQL
+  hosts: vm
+  become: yes
+  vars:
+    postgres_version: 14
+    postgres_db: proyectofinal
 
-- name: Obtener información del sistema
-  hosts: nodo1
-  gather_facts: False
   tasks:
-   - name: Ejecutar el comando ls -la
-     command: ls -la
-     register: resu
+    - name: Instalar los paquetes necesarios
+      apt:
+        name:
+          - postgresql-{{ postgres_version }}
+          - postgresql-contrib
+          - python3-psycopg2
+        state: present
+        update_cache: yes
+      become: true
 
-   - name: Mostrar
-     debug:
-      var: resu
+
+
+    - name: Reiniciar PostgreSQL para aplicar configuraciones
+      service:
+        name: postgresql
+        state: restarted      
+
+
+    - name: Crear base de datos
+      become: yes
+      become_user: postgres
+      community.postgresql.postgresql_db:
+        name: "{{ postgres_db }}"
+        state: present
+
+
+    - name: Crear usuario de base de datos
+      community.postgresql.postgresql_user:
+        name: "{{ lookup('env', 'PG_USER') }}"
+        password: "{{ lookup('env', 'PG_PASSWORD') }}"
+        encrypted: yes
+        state: present
+      become: yes
+      become_user: postgres
+
+    - name: Configurar listen_addresses = '*' en postgresql.conf
+      become: yes
+      become_user: root
+      lineinfile:
+        path: "/etc/postgresql/14/main/postgresql.conf"  
+        regexp: '^#?listen_addresses ='
+        line: "listen_addresses = '*'"
+        state: present
+
+    - name: Configurar acceso en pg_hba.conf para alejandroBD desde 10.0.34.4
+      become: yes
+      become_user: root
+      lineinfile:
+        path: "/etc/postgresql/14/main/pg_hba.conf"  
+        regexp: '^host\s+all\s+alejandroBD\s+0.0.0.0/0\s+md5'
+        line: "host    all             alejandroBD     0.0.0.0/0              md5"
+        state: present
+
+    - name: Asignar privilegios al usuario en la base de datos
+      community.postgresql.postgresql_privs:
+        type: database
+        database: "{{ postgres_db }}"
+        roles: "{{ lookup('env', 'PG_USER') }}"
+        privs: ALL
+      become_user: postgres
+
+    - name: Reiniciar PostgreSQL para aplicar configuraciones
+      service:
+        name: postgresql
+        state: restarted   
+
+  handlers:
+    - name: restart postgres
+      service:
+        name: postgresql
+        state: restarted

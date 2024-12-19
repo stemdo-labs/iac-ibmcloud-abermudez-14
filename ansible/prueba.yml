@@ -3,7 +3,7 @@
   hosts: nodo1
   become: yes
   vars:
-    postgres_version: 14
+    postgres_version: 16
     postgres_db: proyectofinal
 
   tasks:
@@ -55,7 +55,7 @@
       become: yes
       become_user: root
       lineinfile:
-        path: "/etc/postgresql/14/main/pg_hba.conf"  
+        path: "/etc/postgresql/16/main/pg_hba.conf"  
         regexp: '^host\s+all\s+alejandroBD\s+0.0.0.0/0\s+md5'
         line: "host    all             alejandroBD     0.0.0.0/0              md5"
         state: present

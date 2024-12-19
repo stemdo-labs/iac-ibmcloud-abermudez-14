@@ -1,6 +1,6 @@
 ---
 - name: Instalar y configurar PostgreSQL
-  hosts: vm
+  hosts: nodo1
   become: yes
   vars:
     postgres_version: 14

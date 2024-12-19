@@ -155,6 +155,7 @@ resource "ibm_container_vpc_cluster" "cluster_abermudez" {
   worker_count      = "2"
   cos_instance_crn  = ibm_resource_instance.cos_instance_abermudez.id
   resource_group_id = var.resource_group
+  security_groups = [ibm_is_security_group.cluster_abermudez_security_group.id]
   zones {
     subnet_id = ibm_is_subnet.subnet_cluster_abermudez.id
     name      = "eu-gb-1"

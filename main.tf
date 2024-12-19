@@ -61,7 +61,7 @@ resource "ibm_is_security_group" "cluster_abermudez_security_group" {
 
 
 resource "ibm_is_security_group_rule" "IP_cluster_rule" {
-  group     = ibm_is_security_group.cluster_security_group.id
+  group     = ibm_is_security_group.cluster_abermudez_security_group.id
   direction = "outbound"
   remote    = "0.0.0.0/0"
 

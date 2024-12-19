@@ -28,9 +28,11 @@ resource "ibm_is_subnet" "subnet_abermudez" {
 
 resource "ibm_is_security_group" "ssh_security_group" {
   name            = "ssh-security-group"
-  vpc          =  [ibm_is_vpc.vpc_abermudez.id,ibm_is_vpc.vpc_cluster_abermudez.vpc_id]
+  vpc          =  ibm_is_vpc.vpc_abermudez.id
   resource_group  = var.resource_group  
 }
+
+
 
 resource "ibm_is_security_group_rule" "ssh_rule" {
   group     = ibm_is_security_group.ssh_security_group.id
@@ -49,7 +51,21 @@ resource "ibm_is_security_group_rule" "IP_rule" {
 
 }
 
+## NSG PARA EL CLUSTER
 
+resource "ibm_is_security_group" "cluster_abermudez_security_group" {
+  name            = "cluster-abermudez-security-group"
+  vpc          =  ibm_is_vpc.vpc_cluster_abermudez.id
+  resource_group  = var.resource_group  
+}
+
+
+resource "ibm_is_security_group_rule" "IP_cluster_rule" {
+  group     = ibm_is_security_group.cluster_security_group.id
+  direction = "outbound"
+  remote    = "0.0.0.0/0"
+
+}
 
 resource "ibm_is_vpc" "vpc_cluster_abermudez" {
   name = "vpc-cluster-abermudez"
